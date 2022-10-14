@@ -1,5 +1,4 @@
 <template>
-<!--YARRAK -->
   <div ref="editor" class="vue-excel-editor" :style="{display: 'inline-block', width}">
     <div class="component-content">
       <!-- No record -->
