@@ -45,7 +45,7 @@
             <!--            <th class="sticky-column" style="border-left:none; border-right: none; left:530px !important;"></th>-->
             <!--            <th class="sticky-column" style="border-left:none; left:610px !important;"></th>-->
             <template v-for="store in storeList">
-              <th style="z-index:0" colspan="10">{{ store }}</th>
+              <th style="z-index:0" colspan="11">{{ store }}</th>
             </template>
           </tr>
           <tr>
