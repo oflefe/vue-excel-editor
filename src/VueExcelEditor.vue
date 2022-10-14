@@ -15,24 +15,45 @@
 
         <!-- Main Table -->
         <table ref="systable"
-              id="systable"
-              style="table-layout: fixed; width: 0"
-              class="systable"
-              :class="{'no-number': noNumCol}"
-              ondragenter="event.preventDefault(); event.dataTransfer.dropEffect = 'none'"
-              ondragover="event.preventDefault(); event.dataTransfer.dropEffect = 'none'">
+               id="systable"
+               style="table-layout: fixed; width: 0"
+               class="systable"
+               :class="{'no-number': noNumCol}"
+               ondragenter="event.preventDefault(); event.dataTransfer.dropEffect = 'none'"
+               ondragover="event.preventDefault(); event.dataTransfer.dropEffect = 'none'">
           <colgroup>
             <col v-if="!noNumCol" style="width:40px">
             <col v-for="(item, p) in fields" v-show="!item.invisible" :key="p" :style="{width: item.width}">
             <col v-if="vScroller.buttonHeight < vScroller.height" style="width:12px">
           </colgroup>
           <thead class="center-text">
-            <tr>
-              <th class="center-text first-col tl-setting"
-                  :class="{hide: noNumCol}"
-                  style="top: 0"
-                  @mousedown.left="selectAllClick"
-                  @contextmenu.prevent="settingClick">
+          <tr>
+            <th class="sticky-column" style="border-left:none; border-right: none; left:0px !important;"></th>
+            <th class="sticky-column" :style="{borderLeft:'none', borderRight: 'none', left: leftsArray[1] + 'px', important: true}"></th>
+            <th class="sticky-column" :style="{borderLeft:'none', borderRight: 'none', left: leftsArray[2] + 'px',  important: true}"></th>
+            <th class="sticky-column" :style="{borderLeft:'none', borderRight: 'none', left: leftsArray[3] + 'px', important: true}"></th>
+            <th class="sticky-column" :style="{borderLeft:'none', borderRight: 'none', left: leftsArray[4] + 'px', important: true}"></th>
+            <th class="sticky-column" :style="{borderLeft:'none', borderRight: 'none', left: leftsArray[5] + 'px', important: true}"></th>
+            <th class="sticky-column" :style="{borderLeft:'none', borderRight: 'none', left: leftsArray[6] + 'px', important: true}"></th>
+            <th class="sticky-column" :style="{borderLeft:'none', borderRight: 'none', left: leftsArray[7] + 'px', important: true}"></th>
+            <th class="sticky-column" :style="{borderLeft:'none', borderRight: 'none', left: leftsArray[8] + 'px', important: true}"></th>
+            <th class="sticky-column" :style="{borderLeft:'none', borderRight: 'none', left: leftsArray[9] + 'px', important: true}"></th>
+            <th class="sticky-column" :style="{borderLeft:'none', borderRight: 'none', left: leftsArray[10] + 'px', important: true}"></th>
+            <th class="sticky-column" :style="{borderLeft:'none', borderRight: 'none', left: leftsArray[11] + 'px', important: true}"></th>
+            <th class="sticky-column" :style="{borderLeft:'none',  left: leftsArray[12] + 'px', important: true}"></th>
+            <!--            <th class="sticky-column" style="border-left:none; border-right: none; left:450px !important;"></th>-->
+            <!--            <th class="sticky-column" style="border-left:none; border-right: none; left:530px !important;"></th>-->
+            <!--            <th class="sticky-column" style="border-left:none; left:610px !important;"></th>-->
+            <template v-for="store in storeList">
+              <th style="z-index:0" colspan="10">{{ store }}</th>
+            </template>
+          </tr>
+          <tr>
+            <th class="center-text first-col tl-setting"
+                :class="{hide: noNumCol}"
+                style="top: 0"
+                @mousedown.left="selectAllClick"
+                @contextmenu.prevent="settingClick">
                 <span style="width:100%">
                   <svg v-if="selectedCount>0" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times-circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-times-circle fa-w-16 fa-sm"><path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm121.6 313.1c4.7 4.7 4.7 12.3 0 17L338 377.6c-4.7 4.7-12.3 4.7-17 0L256 312l-65.1 65.6c-4.7 4.7-12.3 4.7-17 0L134.4 338c-4.7-4.7-4.7-12.3 0-17l65.6-65-65.6-65.1c-4.7-4.7-4.7-12.3 0-17l39.6-39.6c4.7-4.7 12.3-4.7 17 0l65 65.7 65.1-65.6c4.7-4.7 12.3-4.7 17 0l39.6 39.6c4.7 4.7 4.7 12.3 0 17L312 256l65.6 65.1z"></path></svg>
                   <svg v-else aria-hidden="true" focusable="false" data-prefix="fas" data-icon="bars" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-bars fa-w-14 fa-sm"><path fill="currentColor" d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path></svg>
@@ -41,78 +62,78 @@
                   <svg v-else aria-hidden="true" focusable="false" data-prefix="fas" data-icon="bars" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-bars fa-w-14 fa-sm"><path fill="currentColor" d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path></svg>
                   -->
                 </span>
-              </th>
-              <th v-for="(item, p) in fields"
-                  v-show="!item.invisible"
-                  :key="`th-${p}`"
-                  :colspan="p === fields.length - 1 && vScroller.buttonHeight < vScroller.height ? 2: 1"
-                  :class="{'sort-asc-sign': sortPos==p && sortDir==1,
+            </th>
+            <th v-for="(item, p) in fields"
+                v-show="!item.invisible"
+                :key="`th-${p}`"
+                :colspan="p === fields.length - 1 && vScroller.buttonHeight < vScroller.height ? 2: 1"
+                :class="{'sort-asc-sign': sortPos==p && sortDir==1,
                           'sort-des-sign': sortPos==p && sortDir==-1,
                           'sticky-column': item.sticky}"
-                  :style="{left: item.left}"
-                  @mousedown="headerClick($event, p)"
-                  @contextmenu.prevent="panelFilterClick(item)">
-                <div :class="{'filter-sign': columnFilter[p]}">
-                  <span :class="{'table-col-header': !noHeaderEdit}" v-html="headerLabel(item.label, item)"></span>
-                </div>
-                <div class="col-sep"
-                    @mousedown="colSepMouseDown"
-                    @mouseover="colSepMouseOver"
-                    @mouseout="colSepMouseOut">
-                  <div class="add-col-btn"> + </div>
-                </div>
-              </th>
-            </tr>
-            <tr :class="{hide: !filterRow}">
-              <td class="center-text first-col tl-filter"
-                  :class="{hide: noNumCol}"
-                  style="vertical-align: middle; padding: 0"
-                  :style="{top: calCellTop2 + 'px'}"
-                  @click="columnFilter = {}">
+                :style="{left: item.left}"
+                @mousedown="headerClick($event, p)"
+                @contextmenu.prevent="panelFilterClick(item)">
+              <div :class="{'filter-sign': columnFilter[p]}">
+                <span :class="{'table-col-header': !noHeaderEdit}" v-html="headerLabel(item.label, item)"></span>
+              </div>
+              <div class="col-sep"
+                   @mousedown="colSepMouseDown"
+                   @mouseover="colSepMouseOver"
+                   @mouseout="colSepMouseOut">
+                <div class="add-col-btn"> + </div>
+              </div>
+            </th>
+          </tr>
+          <tr :class="{hide: !filterRow}">
+            <td class="center-text first-col tl-filter"
+                :class="{hide: noNumCol}"
+                style="vertical-align: middle; padding: 0"
+                :style="{top: calCellTop2 + 'px'}"
+                @click="columnFilter = {}">
                 <span v-if="Object.keys(columnFilter).length > 0">
                   <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="eraser" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-eraser fa-w-16 fa-sm"><path fill="currentColor" d="M497.941 273.941c18.745-18.745 18.745-49.137 0-67.882l-160-160c-18.745-18.745-49.136-18.746-67.883 0l-256 256c-18.745 18.745-18.745 49.137 0 67.882l96 96A48.004 48.004 0 0 0 144 480h356c6.627 0 12-5.373 12-12v-40c0-6.627-5.373-12-12-12H355.883l142.058-142.059zm-302.627-62.627l137.373 137.373L265.373 416H150.628l-80-80 124.686-124.686z"></path></svg>                  
                 </span>
-                <!--
-                <svg v-if="selectedCount==table.length" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times-circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-times-circle fa-w-16 fa-sm"><path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm121.6 313.1c4.7 4.7 4.7 12.3 0 17L338 377.6c-4.7 4.7-12.3 4.7-17 0L256 312l-65.1 65.6c-4.7 4.7-12.3 4.7-17 0L134.4 338c-4.7-4.7-4.7-12.3 0-17l65.6-65-65.6-65.1c-4.7-4.7-4.7-12.3 0-17l39.6-39.6c4.7-4.7 12.3-4.7 17 0l65 65.7 65.1-65.6c4.7-4.7 12.3-4.7 17 0l39.6 39.6c4.7 4.7 4.7 12.3 0 17L312 256l65.6 65.1z"></path></svg>
-                <svg v-else aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check-circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-check-circle fa-w-16 fa-sm"><path fill="currentColor" d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"></path></svg>
-                -->
-              </td>
-              <vue-excel-filter v-for="(item, p) in fields"
-                                v-show="!item.invisible"
-                                :ref="`filter-${item.name}`"
-                                :colspan="p === fields.length - 1? 2: 1"
-                                :key="`th2-${p}`"
-                                v-model="columnFilter[p]"
-                                :class="{'sticky-column': item.sticky}"
-                                :style="{left: item.left}"
-                                class="column-filter" />
-            </tr>
+              <!--
+              <svg v-if="selectedCount==table.length" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times-circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-times-circle fa-w-16 fa-sm"><path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm121.6 313.1c4.7 4.7 4.7 12.3 0 17L338 377.6c-4.7 4.7-12.3 4.7-17 0L256 312l-65.1 65.6c-4.7 4.7-12.3 4.7-17 0L134.4 338c-4.7-4.7-4.7-12.3 0-17l65.6-65-65.6-65.1c-4.7-4.7-4.7-12.3 0-17l39.6-39.6c4.7-4.7 12.3-4.7 17 0l65 65.7 65.1-65.6c4.7-4.7 12.3-4.7 17 0l39.6 39.6c4.7 4.7 4.7 12.3 0 17L312 256l65.6 65.1z"></path></svg>
+              <svg v-else aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check-circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-check-circle fa-w-16 fa-sm"><path fill="currentColor" d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"></path></svg>
+              -->
+            </td>
+            <vue-excel-filter v-for="(item, p) in fields"
+                              v-show="!item.invisible"
+                              :ref="`filter-${item.name}`"
+                              :colspan="p === fields.length - 1? 2: 1"
+                              :key="`th2-${p}`"
+                              v-model="columnFilter[p]"
+                              :class="{'sticky-column': item.sticky}"
+                              :style="{left: item.left}"
+                              class="column-filter" />
+          </tr>
           </thead>
           <tbody @mousedown="mouseDown">
-            <tr v-if="localizedLabel.noRecordIndicator && pagingTable.length == 0">
-              <td colspan="100%" style="height:40px; vertical-align: middle; text-align: center"></td>
-            </tr>
-            <tr v-else
-                v-for="(record, rowPos) in pagingTable"
-                :key="rowPos"
-                :class="{select: typeof selected[pageTop + rowPos] !== 'undefined'}"
-                :style="rowStyle(record)">
-              <td class="center-text first-col"
-                  :id="`rid-${record.$id}`"
-                  :class="{
+          <tr v-if="localizedLabel.noRecordIndicator && pagingTable.length == 0">
+            <td colspan="100%" style="height:40px; vertical-align: middle; text-align: center"></td>
+          </tr>
+          <tr v-else
+              v-for="(record, rowPos) in pagingTable"
+              :key="rowPos"
+              :class="{select: typeof selected[pageTop + rowPos] !== 'undefined'}"
+              :style="rowStyle(record)">
+            <td class="center-text first-col"
+                :id="`rid-${record.$id}`"
+                :class="{
                     hide: noNumCol,
                     error: rowerr[`rid-${record.$id}`]
                   }"
-                  :pos="rowPos"
-                  @mouseover="numcolMouseOver"
-                  @click="rowLabelClick">
-                <span v-html="recordLabel(pageTop + rowPos + 1, record)"></span>
-              </td>
-              <td v-for="(item, p) in fields"
-                  v-show="!item.invisible"
-                  :id="`id-${record.$id}-${item.name}`"
-                  :cell-RC="`${rowPos}-${item.name}`"
-                  :class="{
+                :pos="rowPos"
+                @mouseover="numcolMouseOver"
+                @click="rowLabelClick">
+              <span v-html="recordLabel(pageTop + rowPos + 1, record)"></span>
+            </td>
+            <td v-for="(item, p) in fields"
+                v-show="!item.invisible"
+                :id="`id-${record.$id}-${item.name}`"
+                :cell-RC="`${rowPos}-${item.name}`"
+                :class="{
                     readonly: item.readonly,
                     error: errmsg[`id-${record.$id}-${item.name}`],
                     link: item.link,
@@ -120,28 +141,28 @@
                     datepick: item.type == 'date',
                     'sticky-column': item.sticky
                   }"
-                  :style="Object.assign(cellStyle(record, item), renderColumnCellStyle(item))"
-                  :key="p"
-                  @mouseover="cellMouseOver"
-                  @mousemove="cellMouseMove">{{ item.toText(record[item.name]) }}</td>
-              <td v-if="vScroller.buttonHeight < vScroller.height" class="last-col"></td>
-            </tr>
+                :style="Object.assign(cellStyle(record, item), renderColumnCellStyle(item))"
+                :key="p"
+                @mouseover="cellMouseOver"
+                @mousemove="cellMouseMove">{{ item.toText(record[item.name]) }}</td>
+            <td v-if="vScroller.buttonHeight < vScroller.height" class="last-col"></td>
+          </tr>
           </tbody>
           <tfoot>
-            <tr v-show="pagingTable.length && summaryRow">
-              <td class="row-summary first-col">&nbsp;</td>
-              <td v-for="(field, p) in fields"
-                  v-show="!field.invisible"
-                  class="row-summary"
-                  :colspan="p === fields.length - 1 && vScroller.buttonHeight < vScroller.height ? 2: 1"
-                  :class="{
+          <tr v-show="pagingTable.length && summaryRow">
+            <td class="row-summary first-col">&nbsp;</td>
+            <td v-for="(field, p) in fields"
+                v-show="!field.invisible"
+                class="row-summary"
+                :colspan="p === fields.length - 1 && vScroller.buttonHeight < vScroller.height ? 2: 1"
+                :class="{
                     'sticky-column': field.sticky,
                     'summary-column1': p+1 < fields.length && fields[p+1].summary,
                     'summary-column2': field.summary
                   }"
-                  :style="renderColumnCellStyle(field)"
-                  :key="`f${p}`">{{ summary[field.name] }}</td>
-            </tr>
+                :style="renderColumnCellStyle(field)"
+                :key="`f${p}`">{{ summary[field.name] }}</td>
+          </tr>
           </tfoot>
           <slot></slot>
         </table>
@@ -183,7 +204,7 @@
       <div v-if="vScroller.buttonHeight < vScroller.height"
            ref="vScroll"
            class="v-scroll"
-           :style="{top: `${vScroller.top}px`, height: `${vScroller.height}px`}"
+           :style="{top: `${vScroller.top+30}px`, height: `${vScroller.height}px`}"
            @mousedown="vsMouseDown">
         <div ref="vScrollButton"
              class="v-scroll-button"
@@ -206,7 +227,7 @@
       <div ref="footer" class="footer center-text" :class="{hide: noFooter}" style="position:relative" @mousedown="ftMouseDown">
         <div ref="hScroll" class="h-scroll" @mousedown="sbMouseDown" />
         <span class="left-block"></span>
-        <span v-show="!noPaging" style="position: absolute; left: 46px">
+        <span v-show="false" style="position: absolute; left: 46px">
           <span v-html="localizedLabel.footerLeft(pageTop + 1, pageBottom, table.length)"></span>
         </span>
         <span v-show="!noPaging && pageBottom - pageTop < table.length">
@@ -327,7 +348,7 @@ export default {
     noPaging: {type: Boolean, default: false},
     noNumCol: {type: Boolean, default: false},
     noMouseScroll: {type: Boolean, default: false},
-    page: {type: Number, default: 0},               // prefer page size, auto-cal if not provided
+    pageLength: {type: Number, default: 0},               // prefer page size, auto-cal if not provided
     enterToSouth: {type: Boolean, default: false},  // default enter to south
     nFilterCount: {type: Number, default: 1000},    // show top n values in filter dialog
     height: {type: String, default: ''},
@@ -344,6 +365,7 @@ export default {
     spellcheck: {type: Boolean, default: false},
     newIfBottom: {type: Boolean, default: false},
     validate: {type: Function, default: null},
+    storeList: Array,
     localizedLabel: {
       type: Object,
       default () {
@@ -399,6 +421,7 @@ export default {
   data () {
     const pageSize = this.noPaging ? 999999 : 20
     const dataset = {
+      page: this.pageLength,
       version: '1.3',
       tableContent: null,           // Table parent
       systable: null,               // TABLE dom node
@@ -407,10 +430,9 @@ export default {
       filterTr: null,               // THEAD filter dom node
       recordBody: null,             // TBODY dom node
       footer: null,                 // TFOOTER dom node
-
       pageSize: pageSize,
+      leftsArray: [0],
       pageTop: 0,                   // Current page top pos of [table] array
-
       selected: {},                 // selected storage in hash, key is the pos of [table] array
       selectedCount: 0,             // selected row count
       prevSelect: -1,               // previous select pos of [table] array
@@ -572,8 +594,8 @@ export default {
     this.tableContent = this.$refs.tableContent
     this.systable = this.$refs.systable
     this.colgroupTr = this.systable.children[0]
-    this.labelTr = this.systable.children[1].children[0]
-    this.filterTr = this.systable.children[1].children[1]
+    this.labelTr = this.systable.children[1].children[1]
+    this.filterTr = this.systable.children[1].children[2]
     this.recordBody = this.systable.children[2]
     this.footer = this.$refs.footer
     this.inputSquare = this.$refs.inputSquare
@@ -607,6 +629,9 @@ export default {
           this.setting = data
       }
     }
+  },
+  updated() {
+
   },
   methods: {
     componentTabInto (e) {
@@ -690,7 +715,7 @@ export default {
         register: null
       }
       if (this.addColumn) colDef = this.addColumn(colDef)
-      this.newColumn(colDef, pos)      
+      this.newColumn(colDef, pos)
     },
     newColumn (field, pos) {
       this.fields.splice(pos, 0, field)
@@ -702,8 +727,8 @@ export default {
     autoRegisterAllColumns (rows) {
       // If no field is defined, this function will help to create all fields based on provided row sample argument
       const widths = rows.slice(0, 25)
-        .reduce((t, v) => Object.keys(v).map((s, i) => !t || v[s].length > t[i]? v[s].length: t[i]), 0)
-        .map(v => Math.min(Math.max(v * 8.2, 55), 250))
+          .reduce((t, v) => Object.keys(v).map((s, i) => !t || v[s].length > t[i]? v[s].length: t[i]), 0)
+          .map(v => Math.min(Math.max(v * 8.2, 55), 250))
 
       Object.keys(rows[0]).forEach((col, i) => {
         if (col === '$id') return
@@ -733,7 +758,7 @@ export default {
           toText: t => t,
           register: null
         })
-      })        
+      })
     },
     refresh () {
       // this.pageTop = 0
@@ -877,9 +902,12 @@ export default {
     calStickyLeft () {
       let left = 0, n = 0
       this.leftMost = -1
+      this.leftsArray = [0]
       // this.tableContent.scrollTo(0, this.tableContent.scrollTop)
       Array.from(this.labelTr.children).forEach(th => {
         left += th.offsetWidth
+
+        this.leftsArray.push(left)
         const field = this.fields[n++]
         if (field) {
           if (field.sticky) {
@@ -889,6 +917,7 @@ export default {
           else if (this.leftMost === -1) this.leftMost = left
         }
       })
+      this.leftsArray.length = 13
       this.$forceUpdate()
     },
     renderColumnCellStyle (field) {
@@ -899,14 +928,14 @@ export default {
     },
     localeDate (d) {
       if (typeof d === 'undefined') d = new Date()
-      const pad = n => n < 10 ? '0'+n : n;    
+      const pad = n => n < 10 ? '0'+n : n;
       return d.getFullYear() + '-'
-            + pad(d.getMonth() + 1) + '-'
-            + pad(d.getDate()) + ' '
-            + pad(d.getHours()) + ':'
-            + pad(d.getMinutes()) + ':'
-            + pad(d.getSeconds())
-     },
+          + pad(d.getMonth() + 1) + '-'
+          + pad(d.getDate()) + ' '
+          + pad(d.getHours()) + ':'
+          + pad(d.getMinutes()) + ':'
+          + pad(d.getSeconds())
+    },
     calSummary (name) {
       this.fields.forEach(field => {
         if (!field.summary) return
@@ -991,7 +1020,7 @@ export default {
       ref.$el.textContent = filterText
       ref.$emit('input', filterText)
     },
-    
+
     clearFilter(name) {
       if (!name) this.columnFilter = {}
       else this.setFilter(name, '')
@@ -1043,7 +1072,7 @@ export default {
 
       const fullWidth = this.editor.getBoundingClientRect().width
       const viewWidth = this.fields.filter(f => !f.invisible).reduce((c, f) => c - -f.width.replace(/px$/, ''), 0)
-        + (this.noNumCol ? 0 : 40)
+          + (this.noNumCol ? 0 : 40)
       const fillWidth = viewWidth - fullWidth + 2
       if (fillWidth)
         doFields.forEach(f => f.width = (f.width.replace(/px$/, '') - fillWidth / count) + 'px')
@@ -1147,9 +1176,9 @@ export default {
           const recPos = Math.round((this.table.length - this.pageSize) * ratio) + 1
           const rec = this.table[recPos]
           this.vScroller.runner = recPos + '<br>' + this.fields
-            .filter((field, i) => field.keyField || field.sticky || this.sortPos === i)
-            .map(field => field.label + ': ' + rec[field.name])
-            .join('<br>')
+              .filter((field, i) => field.keyField || field.sticky || this.sortPos === i)
+              .map(field => field.label + ': ' + rec[field.name])
+              .join('<br>')
           this.$forceUpdate()
         }
       }
@@ -1177,14 +1206,14 @@ export default {
       }
     },
     sbMouseUp () {
-        window.removeEventListener('mousemove', this.sbMouseMove)
-        window.removeEventListener('mouseup', this.sbMouseUp)
-        this.lazy(() => {
-          if (!this.$refs.hScroll) return
-          this.$refs.hScroll.classList.remove('focus')
-        })
-        this.hScroller.mouseX = 0
-        this.$forceUpdate()
+      window.removeEventListener('mousemove', this.sbMouseMove)
+      window.removeEventListener('mouseup', this.sbMouseUp)
+      this.lazy(() => {
+        if (!this.$refs.hScroll) return
+        this.$refs.hScroll.classList.remove('focus')
+      })
+      this.hScroller.mouseX = 0
+      this.$forceUpdate()
     },
     sbMouseMove (e) {
       if (e.buttons === 0)
@@ -1203,7 +1232,7 @@ export default {
       this.autocompleteInputs = []
       if (this.focused && this.currentField)
         this.inputSquare.style.marginLeft =
-          (this.currentField.sticky ? this.tableContent.scrollLeft - this.squareSavedLeft : 0) + 'px'
+            (this.currentField.sticky ? this.tableContent.scrollLeft - this.squareSavedLeft : 0) + 'px'
 
       if (this.tableContent.scrollTop !== this.vScroller.lastTop) {
         this.calVScroll()
@@ -1373,15 +1402,15 @@ export default {
             if (this.autocompleteInputs.length === 0)
               this.moveSouth(e)
             else
-              if (this.autocompleteSelect < this.autocompleteInputs.length - 1) {
-                this.autocompleteSelect++
-                if (this.autocompleteSelect >= 10) {
-                  const showTop = this.autocompleteSelect * 23 - 206
-                  const scrollTop = this.$refs.autocomplete.scrollTop
-                  if (scrollTop < showTop)
-                    this.$refs.autocomplete.scrollTop = showTop
-                }
+            if (this.autocompleteSelect < this.autocompleteInputs.length - 1) {
+              this.autocompleteSelect++
+              if (this.autocompleteSelect >= 10) {
+                const showTop = this.autocompleteSelect * 23 - 206
+                const scrollTop = this.$refs.autocomplete.scrollTop
+                if (scrollTop < showTop)
+                  this.$refs.autocomplete.scrollTop = showTop
               }
+            }
             break
           case 13:  // Enter
             if (!this.focused) return
@@ -1450,7 +1479,7 @@ export default {
                 if (!this.currentField.allowKeys(e.key.toUpperCase())) return e.preventDefault()
               }
               else
-                if (this.currentField.allowKeys.indexOf(e.key.toUpperCase()) === -1) return e.preventDefault()
+              if (this.currentField.allowKeys.indexOf(e.key.toUpperCase()) === -1) return e.preventDefault()
             }
             if (this.currentField.lengthLimit && this.inputBox.value.length >= this.currentField.lengthLimit) return e.preventDefault()
             if (!this.inputBoxShow) {
@@ -1493,7 +1522,7 @@ export default {
       this.sep = {}
       // this.sep.curCol = this.colgroupTr.children[Array.from(this.labelTr.children).indexOf(e.target.parentElement)]
       this.sep.curCol = this.colgroupTr.children[
-        Array.from(this.labelTr.children).indexOf(e.target.parentElement) - (!this.noNumCol ? 0 : 1)]
+      Array.from(this.labelTr.children).indexOf(e.target.parentElement) - (!this.noNumCol ? 0 : 1)]
       // this.sep.nxtCol = this.sep.curCol.nextElementSibling
       this.sep.pageX = e.pageX
       let padding = 0
@@ -1533,7 +1562,7 @@ export default {
       }
       else {
         // add-col-btn
-          e.target.style.display = 'none'
+        e.target.style.display = 'none'
       }
     },
     colSepMouseMove (e) {
@@ -1638,9 +1667,9 @@ export default {
               return 0
             }
           else
-              sorting = (a, b) => {
-                return String(a[name]).localeCompare(String(b[name]))
-              }
+            sorting = (a, b) => {
+              return String(a[name]).localeCompare(String(b[name]))
+            }
         }
         this.value.sort((a, b) => {
           return sorting(a, b) * -n
@@ -1760,7 +1789,7 @@ export default {
     },
 
     settingClick() {
-      if (!this.disablePanelSetting) 
+      if (!this.disablePanelSetting)
         this.$refs.panelSetting.showPanel();
     },
 
@@ -1775,7 +1804,7 @@ export default {
       this.$refs.importFile.click()
       this.importCallback = cb
       this.importErrorCallback = errCb
-    },   
+    },
     doImport (e) {
       this.processing = true
       // this.refresh()
@@ -1808,11 +1837,11 @@ export default {
               throw new Error('VueExcelEditor: ' + this.localizedLabel.noRecordIsRead)
             }
             if (this.fields
-              .filter(f => f.keyField)
-              .filter(f => typeof importData[0][f.name] === 'undefined' && typeof importData[0][f.label] === 'undefined').length > 0) {
-                if (this.importErrorCallback) this.importErrorCallback('missingKeyColumn')
-                throw new Error(`VueExcelEditor: ${this.localizedLabel.missingKeyColumn}`)
-              }
+                .filter(f => f.keyField)
+                .filter(f => typeof importData[0][f.name] === 'undefined' && typeof importData[0][f.label] === 'undefined').length > 0) {
+              if (this.importErrorCallback) this.importErrorCallback('missingKeyColumn')
+              throw new Error(`VueExcelEditor: ${this.localizedLabel.missingKeyColumn}`)
+            }
 
             let pass = 0
             let inserted = 0
@@ -1825,9 +1854,9 @@ export default {
                 if (keys.length) {
                   // locate match record
                   rowPos = this.table.findIndex(v =>
-                    keys.filter(f => 
-                      typeof v[f.name] !== 'undefined' 
-                      && (v[f.name] === line[f.name] || v[f.name] === line[f.label])).length === keys.length
+                      keys.filter(f =>
+                          typeof v[f.name] !== 'undefined'
+                          && (v[f.name] === line[f.name] || v[f.name] === line[f.label])).length === keys.length
                   )
                   if (rowPos === -1) {
                     // If this is a new line, avoid the line with duplicate key
@@ -1929,58 +1958,133 @@ export default {
           throw new Error('VueExcelEditor: ' + e.stack)
         }
         fileReader.readAsBinaryString(file)
-      }, 500)      
+      }, 500)
     },
-    exportTable (format, selectedOnly, filename) {
+    setPageSize(){
+      this.pageSize = 25
+      return 200;
+    },
+    toggleProcessing(processing){
+
+      return !processing
+    },
+    async exportTable (format, selectedOnly, filename) {
+      //need array of arrays to export properly with merged cells.
       this.processing = true
       setTimeout(() => {
         const wb = XLSX.utils.book_new()
-        let ws1 = null
-        let data = this.table
-        if (selectedOnly)
-          data = this.table.filter((rec, i) => this.selected[i])
-        const mapped = data.map(rec => {
-          const conv = {}
-          this.fields.forEach(field => conv[field.name] = rec[field.name])
-          return conv
-        })
-        ws1 = XLSX.utils.json_to_sheet(mapped, {
-          header: this.fields.map(field => field.name)
-        })
-        const labels = Array.from(this.labelTr.children).slice(1).map(t => t.children[0].innerText)
-        XLSX.utils.sheet_add_aoa(ws1, [labels], {origin: 0})
-        ws1['!cols'] = Array.from(this.labelTr.children).slice(1).map((t) => {
-          return {
-            width: t.getBoundingClientRect().width / 6.5
-          }
-        })
-        XLSX.utils.book_append_sheet(wb, ws1, 'Sheet1')
-        filename = filename || 'export'
-        switch (format) {
-          case 'csv':
-            if (!filename.endsWith('.csv')) filename = filename + '.csv'
-            break
-          case 'xls':
-            if (!filename.endsWith('.xls')) filename = filename + '.xls'
-            break
-          case 'xlsx':
-          case 'excel':
-          default:
-            if (!filename.endsWith('.xlsx')) filename = filename + '.xlsx'
-            break
+        const data = []
+        const storeArray = []
+        const subHeaderNumber = 10
+        const firstStoreColumn = 12
+        let headerArray = ["Firma","Marka","Üst Grup", "Ürün Varyant ID","Ürün Barkod ID_1","Ürün Barkod ID_2",
+          "Ürün Barkod ID_3","Ürün Barkod ID_4","Ürün Barkod ID_5","Ürün Adı", "İnternet Satış Flag", "Firma Stok Bilgisi"]
+        const mergeArray = []
+        // for loop to iterate data object and turn it into an array of arrays (matrix)
+        for (let index in this.table)
+        {
+          let dataObj = Object.keys(this.table[index]).filter(key => !key.endsWith("-0") && !key.endsWith("-11")) //exclude id and unitcost keys
+              .map(key => {
+                return this.table[index][key]
+              })
+          //last item of each row is unwanted so pop it
+          console.log("row", dataObj)
+          dataObj.length = firstStoreColumn  + (subHeaderNumber*this.storeList.length)
+          //push the dataObj array as a row to the master array
+          data.push(dataObj)
         }
-        if (filename.endsWith('.xlsx'))
-          XLSX.writeFile(wb, filename, {
-            compression: 'DEFLATE',
-            compressionOptions: {
-              level: 6
-            }
-          })
-        else
-          XLSX.writeFile(wb, filename)
-
+        //push empty cells to first row in place of common headers without a superheader (no merged store hader above)
+        for(let i = 0; i<firstStoreColumn; i++){
+          storeArray.push("")
+        }
+        //create the store array
+        for(let i in this.storeList){
+          storeArray.push(this.storeList[i])
+          //define the merges for the store array
+          // depending on the number of subheaders below each store, adjust merges
+          let mergeObj = {
+            s: { r: 0, c: subHeaderNumber*i+firstStoreColumn }, // s ("start"): c = 1 r = 2 -> "B3"
+            e: { r: 0, c: subHeaderNumber*i+firstStoreColumn+9 }
+          }
+          mergeArray.push(mergeObj)
+          //subheader array
+          headerArray = headerArray.concat(["Geçmişte Ne Kadar Satıldı", "Tüm Satış Adedi","Bugün - İlk Giriş", "Bugün - Son Giriş", "Bugün - Son Satış",
+            "Mağaza Sipariş Adedi", ".com Sipariş Adedi", "Toplam Sipariş", "Maliyet", "Mağaza Stok Bilgisi"])
+          //push empty cells until next store header
+          for(let k= 0; k <subHeaderNumber-1; k++){
+            storeArray.push("")
+          }
+        }
+        data.unshift(headerArray)
+        data.unshift(storeArray)
+        console.log("data array", data)
+        const dataSheet = XLSX.utils.aoa_to_sheet(data)
+        dataSheet["!merges"] = [...mergeArray]
+        XLSX.utils.book_append_sheet(wb, dataSheet, "testJsontSheet")
+        XLSX.writeFile(wb, 'siparisler.xlsx');
         this.processing = false
       }, 500)
+
+
+
+
+
+      // const result = await this.setPageSize()
+      // const wbook = XLSX.utils.table_to_book(document.getElementById('systable'));
+      // XLSX.writeFile(wbook, 'sample.xlsx');
+
+
+      //this.page = this.pageLength
+
+      // setTimeout(() => {
+      //   const wb = XLSX.utils.book_new()
+      //   let ws1 = null
+      //   let data = this.table
+      //   debugger
+      //   if (selectedOnly)
+      //     data = this.table.filter((rec, i) => this.selected[i])
+      //   const mapped = data.map(rec => {
+      //     const conv = {}
+      //     this.fields.forEach(field => conv[field.name] = rec[field.name])
+      //     return conv
+      //   })
+      //   ws1 = XLSX.utils.json_to_sheet(mapped, {
+      //     header: this.fields.map(field => field.name)
+      //   })
+      //   const labels = Array.from(this.labelTr.children).slice(1).map(t => t.children[0].innerText)
+      //   XLSX.utils.sheet_add_aoa(ws1, [labels], {origin: 0})
+      //   ws1['!cols'] = Array.from(this.labelTr.children).slice(1).map((t) => {
+      //     return {
+      //       width: t.getBoundingClientRect().width / 6.5
+      //     }
+      //   })
+      //   XLSX.utils.book_append_sheet(wb, ws1, 'Sheet1')
+      //   filename = filename || 'export'
+      //   switch (format) {
+      //     case 'csv':
+      //       if (!filename.endsWith('.csv')) filename = filename + '.csv'
+      //       break
+      //     case 'xls':
+      //       if (!filename.endsWith('.xls')) filename = filename + '.xls'
+      //       break
+      //     case 'xlsx':
+      //     case 'excel':
+      //     default:
+      //       if (!filename.endsWith('.xlsx')) filename = filename + '.xlsx'
+      //       break
+      //   }
+      //   if (filename.endsWith('.xlsx'))
+      //     XLSX.writeFile(wb, filename, {
+      //       compression: 'DEFLATE',
+      //       compressionOptions: {
+      //         level: 6
+      //       }
+      //     })
+      //   else
+      //     XLSX.writeFile(wb, filename)
+      //
+      //   this.processing = false
+      // }, 500)
     },
 
     /* *** Select *******************************************************************************************
@@ -2050,8 +2154,8 @@ export default {
       }
     },
     selectRecordByKeys (keys) {
-      const rowPos = this.table.findIndex(v => 
-        this.fields.filter(f => f.keyField).filter(f => v[f.name] === keys[f.name]).length === keys.length)
+      const rowPos = this.table.findIndex(v =>
+          this.fields.filter(f => f.keyField).filter(f => v[f.name] === keys[f.name]).length === keys.length)
       if (rowPos >= 0) this.selectRecord(rowPos)
     },
     selectRecordById (id) {
@@ -2214,8 +2318,8 @@ export default {
       let cursor = 'cell'
       if (this.inputBoxShow) cursor = 'default'
       if (!e.target.classList.contains('readonly')
-        && (e.target.classList.contains('select') || e.target.classList.contains('datepick'))
-        && e.target.offsetWidth - e.offsetX < 15)
+          && (e.target.classList.contains('select') || e.target.classList.contains('datepick'))
+          && e.target.offsetWidth - e.offsetX < 15)
         cursor = 'pointer'
       e.target.style.cursor = cursor
     },
@@ -2351,8 +2455,8 @@ export default {
     inputBoxMouseMove (e) {
       let cursor = 'text'
       if (!this.currentField.readonly
-        && (this.currentField.options || this.currentField.type === 'date')
-        && e.target.offsetWidth - e.offsetX < 15)
+          && (this.currentField.options || this.currentField.type === 'date')
+          && e.target.offsetWidth - e.offsetX < 15)
         cursor = 'pointer'
       e.target.style.cursor = cursor
     },
@@ -2793,6 +2897,8 @@ input:focus, input:active:focus, input.active:focus {
 }
 .center-text {
   text-align: center;
+  position: relative;
+  z-index: 0;
 }
 .table-content {
   flex: 1 1 auto;
@@ -2945,7 +3051,7 @@ input:focus, input:active:focus, input.active:focus {
   padding-left: 0;
   padding-right: 0;
   overflow: hidden;
-  z-index: 5;
+  z-index: 0;
 }
 .systable .sticky-column {
   position: sticky;
@@ -2963,6 +3069,10 @@ input:focus, input:active:focus, input.active:focus {
 .systable thead td.first-col, .systable thead th.first-col {
   cursor: pointer !important;
   z-index: 10;
+}
+thead{
+  position: sticky !important;
+  top: 0 !important;
 }
 .systable tfoot .row-summary {
   height: 25px;
@@ -3010,6 +3120,7 @@ input:focus, input:active:focus, input.active:focus {
   line-height: 2.3;
   border-top: 1px solid lightgray;
   user-select: none;
+  z-index: 0;
 }
 .footer .left-block {
   position: absolute;
